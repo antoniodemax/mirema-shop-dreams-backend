@@ -1,4 +1,3 @@
-# from app import db
 from extensions import db  # Importing the initialized SQLAlchemy instance
 
 class User(db.Model):
