@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token
-from app import db, bcrypt
+# from app import db, bcrypt
 from models import User
 
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
+    from app import db, bcrypt
+    # Ensure the necessary imports are within the function to avoid circular imports
     data = request.get_json()
     username = data.get('username')
     email = data.get('email')
@@ -27,6 +29,7 @@ def signup():
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    from app import db, bcrypt
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
