@@ -21,7 +21,7 @@ jwt.init_app(app)  # Initializing JWTManager
 
 
 # Importing the routes after initializing the app and extensions
-# from routes.auth_routes import auth_bp
+from routes.auth_routes import auth_bp
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 
 if __name__ == '__main__':
