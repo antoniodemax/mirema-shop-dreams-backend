@@ -32,6 +32,7 @@ from flask import Flask
 from extensions import db, bcrypt, jwt  # Importing the initialized extensions
 from flask_migrate import Migrate  # Import Flask-Migrate
 from routes.auth_routes import auth_bp
+from models import User  # Importing the User model
 
 app = Flask(__name__)  # Initialize the Flask app
 
