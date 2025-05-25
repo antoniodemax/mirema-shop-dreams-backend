@@ -22,3 +22,20 @@ def signup():
     db.session.commit()
 
     return jsonify({"success": True, "message": "You have successfully signed up", "user": {"id": new_user.id, "username": new_user.username, "email": new_user.email}}), 201
+
+
+
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"success": False, "message": "Invalid credentials"}), 401
+
+    
+    access_token = create_access_token(identity={"id": user.id, "username": user.username, "email": user.email})        #denerated the jwt token
+    return jsonify({"success": True, "message": "Login successful", "token": access_token}), 200
