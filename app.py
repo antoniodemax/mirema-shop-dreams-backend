@@ -1,7 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager
+from extensions import db, bcrypt, jwt  # Importing the initialized extensions
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_bcrypt import Bcrypt
+# from flask_jwt_extended import JWTManager
 
 app = Flask(__name__) # Initialized the  Flask app
 
@@ -11,12 +12,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret' 
 
 # Initialized the extensions
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-jwt = JWTManager(app)
+# db = SQLAlchemy(app)
+# bcrypt = Bcrypt(app)
+# jwt = JWTManager(app)
+db.init_app(app)  # Initializing SQLAlchemy
+bcrypt.init_app(app)  # Initializing Bcrypt
+jwt.init_app(app)  # Initializing JWTManager
+
 
 # Importing the routes after initializing the app and extensions
-from routes.auth_routes import auth_bp
+# from routes.auth_routes import auth_bp
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 
 if __name__ == '__main__':
